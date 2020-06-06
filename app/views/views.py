@@ -1,5 +1,6 @@
 from flask import request, redirect, url_for, render_template, flash, session
 from app import myapp
+from functools import wraps
 
 from oandapyV20 import API
 from oandapyV20.exceptions import V20Error
@@ -7,6 +8,14 @@ from oandapyV20.endpoints.pricing import PricingStream
 import oandapyV20.endpoints.orders as orders
 import oandapyV20.endpoints.instruments as instruments
 import oandapyV20.endpoints.accounts as accounts
+
+def login_required(view):
+    @wraps(view)
+    def inner(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('login'))
+        return view(*args, **kwargs)
+    return inner
 
 @myapp.route('/login', methods=['GET', 'POST'])
 def login():
