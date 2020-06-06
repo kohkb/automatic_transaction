@@ -51,9 +51,6 @@ def edit_price(id):
 def update_price(id):
     if not session.get('logged_in'):
         return redirect(url_for('login'))
-    print(request)
-
-
     price = Price.query.get(id)
     price.instrument=request.form['instrument']
     price.bid=request.form['bid']
@@ -64,3 +61,13 @@ def update_price(id):
     flash('レートが更新されました')
     return redirect(url_for('show_prices'))
 
+@myapp.route('/prices/<int:id>/delete', methods=['POST'])
+def delete_price(id):
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    price = Price.query.get(id)
+
+    db.session.delete(price)
+    db.session.commit()
+    flash('レートが削除されました')
+    return redirect(url_for('show_prices'))
