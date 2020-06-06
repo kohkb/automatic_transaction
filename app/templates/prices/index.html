@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">通貨ペア</th>
+        <th scope="col">Bid</th>
+        <th scope="col">Ask</th>
+        <th scope="col">日時</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for price in prices %}
+            <tr>
+                <td>{{ price.instrument }}</td>
+                <td>{{ price.bid }}</td>
+                <td>{{ price.ask }}</td>
+                <td>{{ price.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}
