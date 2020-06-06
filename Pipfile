@@ -11,6 +11,8 @@ python-dotenv = "*"
 oandapyv20 = "*"
 requests = "*"
 six = "*"
+flask-sqlalchemy = "*"
+flask-script = "*"
 
 [requires]
 python_version = "3.7"

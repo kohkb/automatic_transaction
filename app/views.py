@@ -9,7 +9,7 @@ import oandapyV20.endpoints.instruments as instruments
 import oandapyV20.endpoints.accounts as accounts
 
 @myapp.route('/', methods = ['GET'])
-def show_entries():
+def show_prices():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     return render_template('entries/index.html')
@@ -25,14 +25,14 @@ def login():
         else:
             session['logged_in'] = True
             flash('ログインしました。')
-            return redirect(url_for('show_entries'))
+            return redirect(url_for('show_prices'))
     return render_template('login.html')
 
 @myapp.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('ログアウトしました。')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('show_prices'))
 
 @myapp.route('/api/v1/instruments/', methods = ['GET'])
 def instruments():
