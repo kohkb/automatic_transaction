@@ -3,20 +3,24 @@ from app.models.prices import Price
 from app import myapp
 from app import db
 from app.views.views import login_required
+from flask import Blueprint
 
-@myapp.route('/', methods = ['GET'])
+price = Blueprint('price', __name__)
+
+
+@price.route('/', methods = ['GET'])
 @login_required
 def show_prices():
     prices = Price.query.order_by(Price.id.desc()).all()
     return render_template('prices/index.html', prices=prices)
 
-@myapp.route('/prices/new', methods = ['GET'])
+@price.route('/prices/new', methods = ['GET'])
 @login_required
 def new_price():
     return render_template('prices/new.html')
 
 
-@myapp.route('/prices/', methods = ['POST'])
+@price.route('/prices/', methods = ['POST'])
 @login_required
 def add_price():
     price = Price(
@@ -28,21 +32,21 @@ def add_price():
     db.session.add(price)
     db.session.commit()
     flash('レートが保存されました')
-    return redirect(url_for('show_prices'))
+    return redirect(url_for('price.show_prices'))
 
-@myapp.route('/prices/<int:id>', methods=['GET'])
+@price.route('/prices/<int:id>', methods=['GET'])
 @login_required
 def show_price(id):
     price = Price.query.get(id)
     return render_template('prices/show.html', price=price)
 
-@myapp.route('/prices/<int:id>/edit', methods=['GET'])
+@price.route('/prices/<int:id>/edit', methods=['GET'])
 @login_required
 def edit_price(id):
     price = Price.query.get(id)
     return render_template('prices/edit.html', price=price)
 
-@myapp.route('/prices/<int:id>/update', methods=['POST'])
+@price.route('/prices/<int:id>/update', methods=['POST'])
 @login_required
 def update_price(id):
     price = Price.query.get(id)
@@ -53,9 +57,9 @@ def update_price(id):
     db.session.merge(price)
     db.session.commit()
     flash('レートが更新されました')
-    return redirect(url_for('show_prices'))
+    return redirect(url_for('price.show_prices'))
 
-@myapp.route('/prices/<int:id>/delete', methods=['POST'])
+@price.route('/prices/<int:id>/delete', methods=['POST'])
 @login_required
 def delete_price(id):
     price = Price.query.get(id)
@@ -63,4 +67,4 @@ def delete_price(id):
     db.session.delete(price)
     db.session.commit()
     flash('レートが削除されました')
-    return redirect(url_for('show_prices'))
+    return redirect(url_for('price.show_prices'))

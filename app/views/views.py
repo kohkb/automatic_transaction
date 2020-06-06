@@ -9,6 +9,10 @@ import oandapyV20.endpoints.orders as orders
 import oandapyV20.endpoints.instruments as instruments
 import oandapyV20.endpoints.accounts as accounts
 
+@myapp.errorhandler(404)
+def non_existant_route(error):
+    return redirect(url_for('login'))
+
 def login_required(view):
     @wraps(view)
     def inner(*args, **kwargs):
@@ -28,14 +32,14 @@ def login():
         else:
             session['logged_in'] = True
             flash('ログインしました。')
-            return redirect(url_for('show_prices'))
+            return redirect(url_for('price.show_prices'))
     return render_template('login.html')
 
 @myapp.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('ログアウトしました。')
-    return redirect(url_for('show_prices'))
+    return redirect(url_for('price.show_prices'))
 
 @myapp.route('/api/v1/instruments/', methods = ['GET'])
 def instruments():

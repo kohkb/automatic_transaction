@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<form action="{{url_for('update_price', id=price.id) }}" method=post class=add-price>
+<form action="{{url_for('price.update_price', id=price.id) }}" method=post class=add-price>
     <div class="form-group">
         <label for="InputTitle">通貨ペア</label>
         <input type="text" class="form-control col-md-2" id="InputTitle" name="instrument" value="{{ price.instrument }}">

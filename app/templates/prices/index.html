@@ -17,7 +17,7 @@
                 <td>{{ price.bid }}</td>
                 <td>{{ price.ask }}</td>
                 <td>{{ price.created_at }}</td>
-                <td><a href="{{url_for('show_price', id=price.id) }}">詳細</a></td>
+                <td><a href="{{url_for('price.show_price', id=price.id) }}">詳細</a></td>
             </tr>
         {% endfor %}
     </tbody>
