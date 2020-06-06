@@ -10,21 +10,26 @@ import oandapyV20.endpoints.accounts as accounts
 
 @myapp.route('/', methods = ['GET'])
 def show_entries():
+    if not session.get('logged_in'):
+        return redirect('/login')
     return render_template('entries/index.html')
 
 @myapp.route('/login', methods=['GET', 'POST'])
-def loging():
+def login():
+    error = None
     if request.method == 'POST':
         if request.form['username'] != myapp.config['USERNAME']:
             print('ユーザ名が異なります')
         elif request.form['password'] != myapp.config['PASSWORD']:
             print('パスワードが異なります')
         else:
+            session['logged_in'] = True
             return redirect('/')
     return render_template('login.html')
 
 @myapp.route('/logout')
 def logout():
+    session.pop('logged_in', None)
     return redirect('/')
 
 @myapp.route('/api/v1/instruments/', methods = ['GET'])

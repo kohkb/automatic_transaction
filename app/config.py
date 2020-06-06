@@ -8,6 +8,7 @@ load_dotenv(dotenv_path)
 DEBUG = True
 USERNAME = 'user'
 PASSWORD = 'password'
+SECRET_KEY = 'secret key'
 ACCOUNT_ID = os.environ.get("ACCOUNT_ID")
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 ENVIRONMENT = os.environ.get("ENVIRONMENT")
