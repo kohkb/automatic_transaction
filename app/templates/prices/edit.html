@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{url_for('update_price', id=price.id) }}" method=post class=add-price>
+    <div class="form-group">
+        <label for="InputTitle">通貨ペア</label>
+        <input type="text" class="form-control col-md-2" id="InputTitle" name="instrument" value="{{ price.instrument }}">
+        <label for="InputTitle">Bid (買値)</label>
+        <input type="number" step="0.01" class="form-control col-md-2" id="InputTitle" name="bid" value="{{ price.bid }}">
+        <label for="InputTitle">Ask（売値）</label>
+        <input type="number" step="0.01" class="form-control col-md-2" id="InputTitle" name="ask" value="{{ price.ask }}">
+    </div>
+    <button type="submit" class="btn btn-primary">更新</button>
+</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>{{ price.instrument }}</h2>
+買値： {{ price.bid }}
+<br>
+売値： {{ price.ask }}
+<br>
+日時： {{ price.created_at }}
+<br>
+<br>
+
+<div class="btn-group">
+    <form action="{{ url_for('edit_price', id=price.id) }}" method="GET">
+        <button type="submit" class="btn btn-secondary">編集</button>
+    </form>
+</div>
+
+{% endblock %}

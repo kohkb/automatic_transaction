@@ -12,3 +12,8 @@ cp env.development .env
 ```
 pipenv install
 ```
+
+DBの初期化
+```
+pipenv run python manage.py init_db
+```
