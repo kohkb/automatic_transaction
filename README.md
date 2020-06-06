@@ -7,3 +7,8 @@ Werkzeug 0.16.0
 ```
 cp env.development .env
 ```
+
+関連パッケージのインストール
+```
+pipenv install
+```
