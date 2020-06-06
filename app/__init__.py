@@ -6,4 +6,4 @@ myapp.config.from_object('app.config')
 
 db = SQLAlchemy(myapp)
 
-import app.views
+from app.views import views, prices
