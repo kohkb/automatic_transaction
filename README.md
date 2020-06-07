@@ -17,3 +17,18 @@ DBの初期化
 ```
 pipenv run python manage.py init_db
 ```
+
+テストの実行
+```
+coverage run -m unittest
+```
+
+テストカバレッジ計測
+```
+coverage report -m
+```
+
+テストカバレッジレポート作成
+```
+coverage html
+```

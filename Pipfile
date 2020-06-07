@@ -13,6 +13,7 @@ requests = "*"
 six = "*"
 flask-sqlalchemy = "*"
 flask-script = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.7"
