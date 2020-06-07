@@ -6,3 +6,9 @@ class InitDB(Command):
 
     def run(self):
         db.create_all()
+
+class DropDB(Command):
+    "drop database"
+
+    def run(self):
+        db.drop_all()

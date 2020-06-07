@@ -1,12 +1,11 @@
 from flask import request, redirect, url_for, render_template, flash, session
-from app.models.prices import Price
-from app import myapp
+from flask import current_app as myapp
 from app import db
+from app.models.prices import Price
 from app.views.views import login_required
 from flask import Blueprint
 
 price = Blueprint('price', __name__)
-
 
 @price.route('/', methods = ['GET'])
 @login_required

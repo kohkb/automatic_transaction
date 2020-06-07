@@ -1,15 +1,22 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-myapp = Flask(__name__) 
-myapp.config.from_object('app.config')
+db = SQLAlchemy()
 
-db = SQLAlchemy(myapp)
+def create_app(test_config=None):
+    myapp = Flask(__name__) 
+    myapp.config.from_object('app.config')
 
-from app.views.views import view
-myapp.register_blueprint(view)
+    if test_config:
+        myapp.config.from_mapping(test_config)
 
-from app.views.prices import price
-myapp.register_blueprint(price,url_prefix='/users')
+    db.init_app(myapp)
 
-from app.views import views, prices
+    from app.views.views import view
+    myapp.register_blueprint(view)
+
+    from app.views.prices import price
+    myapp.register_blueprint(price,url_prefix='/users')
+
+    return myapp
+

@@ -1,5 +1,5 @@
 from flask import request, redirect, url_for, render_template, flash, session
-from app import myapp
+from flask import current_app as myapp
 from functools import wraps
 from flask import Blueprint
 
