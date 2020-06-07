@@ -37,15 +37,24 @@ def logout():
 # TODO: APIはファイルを分ける
 @view.route('/api/v1/candles/', methods = ['GET'])
 def instruments():
-    instrument = request.args.get('instrument')
     oanda = Oanda()
-     
+    instrument = request.args.get('instrument')
     return oanda.candles(instrument)
+
+@view.route('/api/v1/pricing/', methods = ['GET'])
+def pricing():
+    oanda = Oanda()
+    return oanda.pricing()
 
 @view.route('/api/v1/orders/', methods = ['GET'])
 def orders():
     oanda = Oanda()
     return oanda.orders()
+
+@view.route('/api/v1/orders/', methods = ['POST'])
+def create_order():
+    oanda = Oanda()
+    return oanda.create_order()
 
 @view.route('/api/v1/positions/', methods = ['GET'])
 def positions():

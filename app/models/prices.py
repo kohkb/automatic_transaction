@@ -1,5 +1,8 @@
 from app import db
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+
+# TODO: 別のファイルに移動
+JST = timezone(timedelta(hours=+9), 'JST')
 
 class Price(db.Model):
     __table_name__ = 'prices'
@@ -14,7 +17,7 @@ class Price(db.Model):
         self.instrument = instrument
         self.bid = bid
         self.ask = ask
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(JST)
     
     def __repr__(self):
         return '<Price id:{} instrument: {} bid: {} ask: {} '.format(self.id, self.title, self.bid, self.ask)
