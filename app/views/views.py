@@ -4,12 +4,6 @@ from functools import wraps
 from flask import Blueprint
 from app.services.oanda import Oanda
 
-from oandapyV20 import API
-from oandapyV20.exceptions import V20Error
-from oandapyV20.endpoints.pricing import PricingStream
-import oandapyV20.endpoints.orders as orders
-import oandapyV20.endpoints.accounts as accounts
-
 view = Blueprint('view', __name__)
 
 def login_required(view):
@@ -47,6 +41,16 @@ def instruments():
     oanda = Oanda()
      
     return oanda.candles(instrument)
+
+@view.route('/api/v1/orders/', methods = ['GET'])
+def orders():
+    oanda = Oanda()
+    return oanda.orders()
+
+@view.route('/api/v1/positions/', methods = ['GET'])
+def positions():
+    oanda = Oanda()
+    return oanda.positions()
 
 @view.app_errorhandler(404)
 def non_existant_route(error):
