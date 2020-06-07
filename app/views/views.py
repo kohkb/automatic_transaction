@@ -2,6 +2,7 @@ from flask import request, redirect, url_for, render_template, flash, session
 from flask import current_app as myapp
 from functools import wraps
 from flask import Blueprint
+from app.services.oanda import Oanda
 
 from oandapyV20 import API
 from oandapyV20.exceptions import V20Error
@@ -39,13 +40,13 @@ def logout():
     flash('ログアウトしました。')
     return redirect(url_for('price.show_prices'))
 
-@view.route('/api/v1/instruments/', methods = ['GET'])
+# TODO: APIはファイルを分ける
+@view.route('/api/v1/candles/', methods = ['GET'])
 def instruments():
-    instruments = request.args.get('instruments')
-    api = API(access_token=myapp.config['ACCESS_TOKEN'], environment=myapp.config['ACCESS_TOKEN'])
-    params = { "instruments": instruments }
-    r = accounts.AccountInstruments(accountID=myapp.config['ACCOUNT_ID'], params=params)
-    return api.request(r)
+    instrument = request.args.get('instrument')
+    oanda = Oanda()
+     
+    return oanda.candles(instrument)
 
 @view.app_errorhandler(404)
 def non_existant_route(error):
