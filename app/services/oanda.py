@@ -57,6 +57,9 @@ class Oanda():
             return jsonify({"error": "an error occurred"})
     
     def create_order(self):
+        # WEBに公開するため、一時的に購入リクエストは停止する
+        return jsonify({"error": "an error occurred"})
+
         current_price = 100.12
         data = {
             "order": {
@@ -90,9 +93,3 @@ class Oanda():
             return self.api.request(r)
         except:
             return jsonify({"error": "an error occurred"})
-
-    
-
-
-
-
