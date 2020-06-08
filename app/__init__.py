@@ -18,5 +18,8 @@ def create_app(test_config=None):
     from app.views.prices import price
     myapp.register_blueprint(price,url_prefix='/users')
 
+    from app.views.api import api
+    myapp.register_blueprint(api,url_prefix='/api/v1')
+
     return myapp
 
