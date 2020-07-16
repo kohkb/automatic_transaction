@@ -56,22 +56,22 @@ class Oanda():
         except:
             return jsonify({"error": "an error occurred"})
     
-    def create_order(self):
+    def create_order(self, order_price):
         # WEBに公開するため、一時的に購入リクエストは停止する
         return jsonify({"error": "an error occurred"})
 
-        current_price = 100.12
+        # TODO: 数値は誤差が生じて桁数オーバーエラーがでるのでceilする
         data = {
             "order": {
-                "price": current_price,
+                "price": order_price,
                 "units": "1",
                 "stopLossOnFill": {
                     "timeInForce": "GTC",
-                    "price": current_price - 0.2
+                    "price": order_price - 0.2
                 },
                 "takeProfitOnFill": {
                     "timeInForce": "GTC",
-                    "price": current_price + 0.05
+                    "price": order_price + 0.05
                 },
                 "instrument": "USD_JPY",
                 "timeInForce": "GTC",
@@ -84,7 +84,6 @@ class Oanda():
         r = orders.OrderCreate(accountID=self.account_id, data=data)
 
         # TODO: Orderテーブルに記録していく        
-
         return self.api.request(r)
     
     def positions(self):
