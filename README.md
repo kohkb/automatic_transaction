@@ -25,11 +25,6 @@ pipenv run python manage.py init_db
  flask run 
 ```
 
-## スケジューラの起動
-```
-python3 scheduler.py
-```
-
 ## テスト
 ```
 # テストの実行

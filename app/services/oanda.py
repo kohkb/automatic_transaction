@@ -12,7 +12,7 @@ from app import db
 from app.models.prices import Price
 import json
 
-# TODO: candlesやpricingはクラスを分けて、必要な値のみ取れるようにする
+# TODO: namespaceをOandaApiにする
 class Oanda():
     def __init__(self):      
         self.api = API(access_token=myapp.config['ACCESS_TOKEN'], environment=myapp.config['ENVIRONMENT'])
