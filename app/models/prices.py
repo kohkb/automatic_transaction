@@ -1,7 +1,7 @@
 from app import db
 from datetime import datetime, timezone, timedelta
 
-# TODO: 別のファイルに移動
+# TODO: 別のファイルに移動して共通化する
 JST = timezone(timedelta(hours=+9), 'JST')
 
 class Price(db.Model):
@@ -11,7 +11,6 @@ class Price(db.Model):
     bid = db.Column(db.Float)
     ask = db.Column(db.Float)
     created_at = db.Column(db.DateTime)
-
 
     def __init__(self, instrument=None, bid=None, ask=None):
         self.instrument = instrument

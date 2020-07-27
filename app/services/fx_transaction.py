@@ -1,4 +1,5 @@
 from app.services.oanda import Oanda
+from flask import current_app as myapp
 from flask import jsonify
 
 class FxTransaction:
@@ -8,8 +9,12 @@ class FxTransaction:
     def execute(self):
         positions = self.oanda.positions()
         if positions:
-            print(jsonify({"error": "you already have positions"}), 200)
+            myapp.logger.info('alread has positions')
             return
       
-        order_price = 100.12
+        order_price = self.price()
         print(self.oanda.create_order(order_price))
+
+    def price(self):
+        # TODO: fetch from Price Class
+        return 100.12

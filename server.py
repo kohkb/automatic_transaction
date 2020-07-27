@@ -6,7 +6,7 @@ import atexit
 myapp = create_app()
 
 # TODO: move another place
-# Cron Setting
+# cron setting
 cron = Scheduler(daemon=True)
 cron.start()
 
