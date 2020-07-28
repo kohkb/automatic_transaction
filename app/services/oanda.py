@@ -1,5 +1,4 @@
 from flask import current_app as myapp
-from flask import jsonify
 from oandapyV20 import API
 from oandapyV20.exceptions import V20Error
 import oandapyV20.endpoints.accounts as accounts
@@ -10,7 +9,6 @@ import oandapyV20.endpoints.positions as positions
 from app import db
 from app.models.prices import Price
 
-# TODO: namespaceをOandaApiにする
 class Oanda():
     def __init__(self):      
         self.api = API(access_token=myapp.config['ACCESS_TOKEN'], environment=myapp.config['ENVIRONMENT'])
@@ -20,43 +18,35 @@ class Oanda():
         # 5分足
         params = {"count": 1, "granularity": "M5"}
         r = instruments.InstrumentsCandles(instrument=instrument, params=params)
-        try:
-            return self.api.request(r)
-        except:
-            return jsonify({"error": "an error occurred"})
-        
+        return self.api.request(r)
+       
     def pricing(self, instrument="USD_JPY"):
         params = {"instruments": instrument}
         r = pricing.PricingInfo(accountID=self.account_id, params=params)
-        try:
-            result = self.api.request(r)
+        
+        result = self.api.request(r)
 
-            bid = result["prices"][0]["bids"][0]["price"]
-            ask = result["prices"][0]["asks"][0]["price"]
+        bid = result["prices"][0]["bids"][0]["price"]
+        ask = result["prices"][0]["asks"][0]["price"]
 
-            price = Price(
-                instrument=instrument,
-                bid=bid,
-                ask=ask
-            )
+        price = Price(
+            instrument=instrument,
+            bid=bid,
+            ask=ask
+        )
 
-            db.session.add(price)
-            db.session.commit()
+        db.session.add(price)
+        db.session.commit()
 
-            return result
-        except:
-            return jsonify({"error": "an error occurred"})
+        return result
     
     def orders(self):
         r = orders.OrderList(self.account_id)
-        try:
-            return self.api.request(r)
-        except:
-            return jsonify({"error": "an error occurred"})
+        return self.api.request(r)
     
     def create_order(self, order_price):
         # WEBに公開するため、一時的に購入リクエストは停止する
-        return jsonify({"error": "an error occurred"})
+        return 'an error occurred'
 
         # TODO: 数値は誤差が生じて桁数オーバーエラーがでるのでceilする
         data = {
@@ -86,7 +76,4 @@ class Oanda():
     
     def positions(self):
         r = positions.PositionList(self.account_id)
-        try:
-            return self.api.request(r)
-        except:
-            return jsonify({"error": "an error occurred"})
+        return self.api.request(r)

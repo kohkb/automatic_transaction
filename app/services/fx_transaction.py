@@ -7,13 +7,16 @@ class FxTransaction:
         self.oanda = Oanda()
 
     def execute(self):
-        positions = self.oanda.positions()
-        if positions:
+        if self.has_positions():
             myapp.logger.info('alread has positions')
             return
       
         order_price = self.price()
         print(self.oanda.create_order(order_price))
+
+    def has_positions(self):
+        positions = self.oanda.positions()
+        return positions['positions'][0]['long']['units'] != '0' or positions['positions'][0]['short']['units'] !='0'
 
     def price(self):
         # TODO: fetch from Price Class
