@@ -16,6 +16,8 @@ def job_function():
     fx_transaction = FxTransaction()
     fx_transaction.execute()
 
+# TODO: Add job that fetch price data from oanda
+
 # Shutdown your cron thread if the web process is stopped
 atexit.register(lambda: cron.shutdown(wait=False))
 
