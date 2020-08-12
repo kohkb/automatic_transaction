@@ -8,12 +8,15 @@ class FxTransaction:
         self.order_price = OrderPrice()
 
     def execute(self):
-        if self.has_positions():
-            myapp.logger.info('alread has positions')
+        if self.has_orders():
+            myapp.logger.info('alread has orders')
             return
       
         order_price = self.order_price.calculate()
         print(self.oanda.create_order(order_price))
+
+    def has_orders(self):
+        return True
 
     def has_positions(self):
         positions = self.oanda.positions()

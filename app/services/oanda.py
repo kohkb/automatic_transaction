@@ -19,30 +19,31 @@ class Oanda():
         params = {"count": 1, "granularity": "M5"}
         r = instruments.InstrumentsCandles(instrument=instrument, params=params)
         return self.api.request(r)
-       
-    def pricing(self, instrument="USD_JPY"):
+    
+    def positions(self):
+        r = positions.PositionList(self.account_id)
+        return self.api.request(r)
+
+    def orders(self):
+        r = orders.OrderList(self.account_id)
+        return self.api.request(r)
+    
+    def save_price(self, instrument="USD_JPY"):
         params = {"instruments": instrument}
         r = pricing.PricingInfo(accountID=self.account_id, params=params)
         
         result = self.api.request(r)
 
-        bid = result["prices"][0]["bids"][0]["price"]
-        ask = result["prices"][0]["asks"][0]["price"]
-
         price = Price(
             instrument=instrument,
-            bid=bid,
-            ask=ask
+            bid=result["prices"][0]["bids"][0]["price"],
+            ask=result["prices"][0]["asks"][0]["price"]
         )
 
         db.session.add(price)
         db.session.commit()
 
         return result
-    
-    def orders(self):
-        r = orders.OrderList(self.account_id)
-        return self.api.request(r)
     
     def create_order(self, order_price):
         # WEBに公開するため、一時的に購入リクエストは停止する
@@ -68,12 +69,7 @@ class Oanda():
             }
         }
 
-        # 取引中がすでに存在したらスキップ
         r = orders.OrderCreate(accountID=self.account_id, data=data)
 
-        # TODO: Orderテーブルに記録していく        
-        return self.api.request(r)
-    
-    def positions(self):
-        r = positions.PositionList(self.account_id)
+        # TODO: Orderテーブルに記録する       
         return self.api.request(r)
