@@ -36,3 +36,6 @@ coverage report -m
 # テストカバレッジレポート作成
 coverage html
 ```
+
+## 購入ロジックの追加
+app/services/order_price.pyを変更する
