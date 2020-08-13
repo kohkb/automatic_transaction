@@ -1,4 +1,8 @@
 # automatic_transaction
+## 概要
+OANDAのAPIを用いてFX自動売買を行う
+今後ロジックを追加していく
+
 ## 必要なもの
 Python 3.7.4
 Flask 1.1.1
