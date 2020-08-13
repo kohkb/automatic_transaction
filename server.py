@@ -10,17 +10,17 @@ myapp = create_app()
 cron = Scheduler(daemon=True)
 cron.start()
 
-@cron.interval_schedule(seconds=10)
-def fx_transcation():
-  with myapp.app_context():
-    fx_transaction = FxTransaction()
-    fx_transaction.execute()
-
-@cron.interval_schedule(seconds=5)
+@cron.interval_schedule(minutes=15)
 def save_price():
   with myapp.app_context():
     oanda = Oanda()
     oanda.save_price()
+
+@cron.interval_schedule(minutes=15)
+def fx_transcation():
+  with myapp.app_context():
+    fx_transaction = FxTransaction()
+    fx_transaction.execute()
 
 atexit.register(lambda: cron.shutdown(wait=False))
 

@@ -45,14 +45,10 @@ class Oanda():
         return result
     
     def create_order(self, order_price, stop_loss_price, take_profit_price, instrument="USD_JPY"):
-        print(stop_loss_price)
-        print(take_profit_price)
-        # return 'an error occurred'
-
         data = {
             "order": {
                 "price": str(order_price),
-                "units": "1",
+                "units": "100",
                 "stopLossOnFill": {
                     "timeInForce": "GTC",
                     "price": str(stop_loss_price)
