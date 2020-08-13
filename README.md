@@ -22,7 +22,7 @@ pipenv run python manage.py init_db
  source .env
 
  # サーバ起動
- flask run 
+ python3 server.py
 ```
 
 ## テスト
@@ -38,4 +38,4 @@ coverage html
 ```
 
 ## 購入ロジックの追加
-app/services/order_price.pyを変更する
+app/services/order_price_manager.pyを変更する

@@ -18,7 +18,6 @@ def show_prices():
 def new_price():
     return render_template('prices/new.html')
 
-
 @price.route('/prices/', methods = ['POST'])
 @login_required
 def add_price():

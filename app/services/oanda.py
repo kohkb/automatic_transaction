@@ -14,9 +14,8 @@ class Oanda():
         self.api = API(access_token=myapp.config['ACCESS_TOKEN'], environment=myapp.config['ENVIRONMENT'])
         self.account_id = myapp.config['ACCOUNT_ID']
 
-    def candles(self, instrument):
-        # 5分足
-        params = {"count": 1, "granularity": "M5"}
+    def candles(self, instrument="USD_JPY"):
+        params = {"count": 1, "granularity": "M5"} # 5分足
         r = instruments.InstrumentsCandles(instrument=instrument, params=params)
         return self.api.request(r)
     
@@ -45,24 +44,24 @@ class Oanda():
 
         return result
     
-    def create_order(self, order_price):
-        # WEBに公開するため、一時的に購入リクエストは停止する
-        return 'an error occurred'
+    def create_order(self, order_price, stop_loss_price, take_profit_price, instrument="USD_JPY"):
+        print(stop_loss_price)
+        print(take_profit_price)
+        # return 'an error occurred'
 
-        # TODO: 数値は誤差が生じて桁数オーバーエラーがでるのでceilする
         data = {
             "order": {
-                "price": order_price,
+                "price": str(order_price),
                 "units": "1",
                 "stopLossOnFill": {
                     "timeInForce": "GTC",
-                    "price": order_price - 0.2
+                    "price": str(stop_loss_price)
                 },
                 "takeProfitOnFill": {
                     "timeInForce": "GTC",
-                    "price": order_price + 0.05
+                    "price": str(take_profit_price)
                 },
-                "instrument": "USD_JPY",
+                "instrument": instrument,
                 "timeInForce": "GTC",
                 "type": "LIMIT",
                 "positionFill": "DEFAULT"

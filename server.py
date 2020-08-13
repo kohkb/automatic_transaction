@@ -10,13 +10,13 @@ myapp = create_app()
 cron = Scheduler(daemon=True)
 cron.start()
 
-@cron.interval_schedule(seconds=5)
+@cron.interval_schedule(seconds=10)
 def fx_transcation():
   with myapp.app_context():
     fx_transaction = FxTransaction()
     fx_transaction.execute()
 
-@cron.interval_schedule(seconds=10)
+@cron.interval_schedule(seconds=5)
 def save_price():
   with myapp.app_context():
     oanda = Oanda()
