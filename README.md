@@ -29,6 +29,12 @@ pipenv run python manage.py init_db
  python3 server.py
 ```
 
+## デプロイ
+```
+# Herokuへデプロイ
+git push heroku master 
+```
+
 ## テスト
 ```
 # テストの実行
