@@ -1,7 +1,7 @@
 # automatic_transaction
 ## 概要
-OANDAのAPIを用いてFX自動売買を行う
-今後ロジックを追加していく
+OANDAのAPIを用いてFX自動売買を行う。
+今後ロジックを追加していく。
 
 ## 必要なもの
 Python 3.7.4
@@ -48,4 +48,4 @@ coverage html
 ```
 
 ## 購入ロジックの追加
-app/services/order_price_manager.pyを変更する
+app/services/order_price_manager.pyを変更する。
