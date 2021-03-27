@@ -7,7 +7,7 @@ import oandapyV20.endpoints.orders as orders
 import oandapyV20.endpoints.pricing as pricing
 import oandapyV20.endpoints.positions as positions
 from app import db
-from app.models.prices import Price
+from app.prices import Price
 
 
 class Oanda():

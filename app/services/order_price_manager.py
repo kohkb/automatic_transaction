@@ -1,4 +1,4 @@
-from app.models.prices import Price
+from app.prices import Price
 
 
 class OrderPriceManager():
