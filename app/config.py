@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-SQLALCHEMY_TRACK_MODIFICATIONS=True
-SQLALCHEMY_DATABASE_URI='sqlite:///fx_trading.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_DATABASE_URI = 'sqlite:///fx_trading.db'
 
 DEBUG = True
 USERNAME = 'user'

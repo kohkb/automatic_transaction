@@ -3,8 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 def create_app(test_config=None):
-    myapp = Flask(__name__) 
+    myapp = Flask(__name__)
     myapp.config.from_object('app.config')
 
     if test_config:
@@ -16,7 +17,6 @@ def create_app(test_config=None):
     myapp.register_blueprint(view)
 
     from app.views.prices import price
-    myapp.register_blueprint(price,url_prefix='/users')
+    myapp.register_blueprint(price, url_prefix='/users')
 
     return myapp
-

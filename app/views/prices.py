@@ -7,18 +7,21 @@ from flask import Blueprint
 
 price = Blueprint('price', __name__)
 
-@price.route('/', methods = ['GET'])
+
+@price.route('/', methods=['GET'])
 @login_required
 def show_prices():
     prices = Price.query.order_by(Price.id.desc()).all()
     return render_template('prices/index.html', prices=prices)
 
-@price.route('/prices/new', methods = ['GET'])
+
+@price.route('/prices/new', methods=['GET'])
 @login_required
 def new_price():
     return render_template('prices/new.html')
 
-@price.route('/prices/', methods = ['POST'])
+
+@price.route('/prices/', methods=['POST'])
 @login_required
 def add_price():
     price = Price(
@@ -32,11 +35,13 @@ def add_price():
     flash('レートが保存されました')
     return redirect(url_for('price.show_prices'))
 
+
 @price.route('/prices/<int:id>', methods=['GET'])
 @login_required
 def show_price(id):
     price = Price.query.get(id)
     return render_template('prices/show.html', price=price)
+
 
 @price.route('/prices/<int:id>/edit', methods=['GET'])
 @login_required
@@ -44,18 +49,20 @@ def edit_price(id):
     price = Price.query.get(id)
     return render_template('prices/edit.html', price=price)
 
+
 @price.route('/prices/<int:id>/update', methods=['POST'])
 @login_required
 def update_price(id):
     price = Price.query.get(id)
-    price.instrument=request.form['instrument']
-    price.bid=request.form['bid']
-    price.ask=request.form['ask']
-    
+    price.instrument = request.form['instrument']
+    price.bid = request.form['bid']
+    price.ask = request.form['ask']
+
     db.session.merge(price)
     db.session.commit()
     flash('レートが更新されました')
     return redirect(url_for('price.show_prices'))
+
 
 @price.route('/prices/<int:id>/delete', methods=['POST'])
 @login_required

@@ -9,16 +9,20 @@ import oandapyV20.endpoints.positions as positions
 from app import db
 from app.models.prices import Price
 
+
 class Oanda():
-    def __init__(self):      
-        self.api = API(access_token=myapp.config['ACCESS_TOKEN'], environment=myapp.config['ENVIRONMENT'])
+    def __init__(self):
+        self.api = API(
+            access_token=myapp.config['ACCESS_TOKEN'],
+            environment=myapp.config['ENVIRONMENT'])
         self.account_id = myapp.config['ACCOUNT_ID']
 
     def candles(self, instrument="USD_JPY"):
-        params = {"count": 1, "granularity": "M5"} # 5分足
-        r = instruments.InstrumentsCandles(instrument=instrument, params=params)
+        params = {"count": 1, "granularity": "M5"}  # 5分足
+        r = instruments.InstrumentsCandles(
+            instrument=instrument, params=params)
         return self.api.request(r)
-    
+
     def positions(self):
         r = positions.PositionList(self.account_id)
         return self.api.request(r)
@@ -26,11 +30,11 @@ class Oanda():
     def orders(self):
         r = orders.OrderList(self.account_id)
         return self.api.request(r)
-    
+
     def save_price(self, instrument="USD_JPY"):
         params = {"instruments": instrument}
         r = pricing.PricingInfo(accountID=self.account_id, params=params)
-        
+
         result = self.api.request(r)
 
         price = Price(
@@ -43,8 +47,13 @@ class Oanda():
         db.session.commit()
 
         return result
-    
-    def create_order(self, order_price, stop_loss_price, take_profit_price, instrument="USD_JPY"):
+
+    def create_order(
+            self,
+            order_price,
+            stop_loss_price,
+            take_profit_price,
+            instrument="USD_JPY"):
         data = {
             "order": {
                 "price": str(order_price),
@@ -66,5 +75,5 @@ class Oanda():
 
         r = orders.OrderCreate(accountID=self.account_id, data=data)
 
-        # TODO: Orderテーブルに記録する       
+        # TODO: Orderテーブルに記録する
         return self.api.request(r)

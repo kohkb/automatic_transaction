@@ -4,6 +4,7 @@ import unittest
 import tempfile
 from app.scripts.db import InitDB, DropDB
 
+
 class TestApp(unittest.TestCase):
     def setUp(self):
         self.db_fd, self.db_path = tempfile.mkstemp()
@@ -16,18 +17,22 @@ class TestApp(unittest.TestCase):
         self.app_context.push()
         InitDB().run
 
-    
     def tearDown(self):
         DropDB().run()
         self.app_context.pop()
         os.unlink(self.db_path)
 
     def login(self, username, password):
-        return self.client.post('/login', data=dict(username=username, password=password), follow_redirects=True)
+        return self.client.post(
+            '/login',
+            data=dict(
+                username=username,
+                password=password),
+            follow_redirects=True)
 
     def logout(self):
         return self.client.get('/logout', follow_redirects=True)
-    
+
     def test_login_logout(self):
         # TODO: DBが反映されていないのであとで直す
         # rv = self.login('user', 'password')
@@ -38,6 +43,7 @@ class TestApp(unittest.TestCase):
 
         rv = self.login('user', 'default')
         assert 'パスワードが異なります'.encode() in rv.data
+
 
 if __name__ == '__main__':
     unittest.main()

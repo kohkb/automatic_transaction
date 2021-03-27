@@ -5,6 +5,7 @@ from flask import Blueprint
 
 view = Blueprint('view', __name__)
 
+
 def login_required(view):
     @wraps(view)
     def inner(*args, **kwargs):
@@ -13,9 +14,10 @@ def login_required(view):
         return view(*args, **kwargs)
     return inner
 
+
 @view.route('/login', methods=['GET', 'POST'])
 def login():
-    error=None
+    error = None
     if request.method == 'POST':
         if request.form['username'] != myapp.config['USERNAME']:
             flash('ユーザ名が異なります')
@@ -27,11 +29,13 @@ def login():
             return redirect(url_for('price.show_prices'))
     return render_template('login.html')
 
+
 @view.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('ログアウトしました。')
     return redirect(url_for('price.show_prices'))
+
 
 @view.app_errorhandler(404)
 def non_existant_route(error):
