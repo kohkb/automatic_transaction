@@ -26,11 +26,12 @@ pipenv run python manage.py init_db
 
 ## サーバ起動
 ```
- # 環境変数読み込み
- source .env
+# 環境変数読み込み
+source .env
 
- # サーバ起動
- python3 server.py
+# サーバ起動
+pipenv shell
+python server.py
 ```
 
 ## デプロイ
