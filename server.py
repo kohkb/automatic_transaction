@@ -1,6 +1,6 @@
 from app import create_app
-from app.services.fx_transaction import FxTransaction
-from app.services.oanda import Oanda
+from app.fx_transaction import FxTransaction
+from app.oanda import Oanda
 from apscheduler.scheduler import Scheduler
 import atexit
 

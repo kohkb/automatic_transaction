@@ -1,5 +1,5 @@
-from app.services.oanda import Oanda
-from app.services.order_price_manager import OrderPriceManager
+from app.oanda import Oanda
+from app.order_price_manager import OrderPriceManager
 from flask import current_app as myapp
 
 

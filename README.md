@@ -50,4 +50,4 @@ pipenv run test
 ```
 
 ## 購入ロジックの追加
-app/services/order_price_manager.pyを変更する。
+app/order_price_manager.pyを変更する。
