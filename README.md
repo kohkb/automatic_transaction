@@ -40,16 +40,13 @@ python server.py
 git push heroku master 
 ```
 
-## テスト
+## コマンドリファレンス
 ```
-# テストの実行
-coverage run -m unittest
+# Formatter
+pipenv run format
 
-# テストカバレッジ計測
-coverage report -m
-
-# テストカバレッジレポート作成
-coverage html
+# Test
+pipenv run test
 ```
 
 ## 購入ロジックの追加

@@ -16,6 +16,11 @@ flask-script = "*"
 coverage = "*"
 gunicorn = "*"
 apscheduler = "==2.1.2"
+autopep8 = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+format = "autopep8 -ivr --aggressive --aggressive ."
+test = "coverage run -m unittest"
